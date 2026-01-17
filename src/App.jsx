@@ -444,7 +444,7 @@ function App() {
                 icon: <Award className="w-16 h-16" />,
                 title: "Experiencia Comprobada",
                 description:
-                  "Más de 15 años en el mercado respaldan nuestro servicio. Certificaciones profesionales y actualización constante.",
+                  "Más de 10 años en el mercado respaldan nuestro servicio. Certificaciones profesionales y actualización constante.",
               },
               {
                 icon: <Clock className="w-16 h-16" />,
