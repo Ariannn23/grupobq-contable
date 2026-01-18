@@ -1,30 +1,10 @@
 import { motion } from "framer-motion";
-import { Award, Clock, Shield, Users, CheckCircle } from "lucide-react";
+import { Users, CheckCircle } from "lucide-react";
 import { COMPANY_INFO } from "../../utils/constants";
+import { benefitsData } from "../../data/benefits";
 
 const About = () => {
   const { about, founder } = COMPANY_INFO;
-
-  const benefits = [
-    {
-      icon: Award,
-      title: "Experiencia Comprobada",
-      description:
-        "Años en el mercado respaldan nuestro servicio. Certificaciones profesionales y actualización constante.",
-    },
-    {
-      icon: Clock,
-      title: "Respuesta Rápida",
-      description:
-        "Atendemos tus consultas en menos de 24 horas. Equipo dedicado disponible cuando nos necesites.",
-    },
-    {
-      icon: Shield,
-      title: "Confidencialidad Total",
-      description:
-        "Tu información está 100% protegida. Manejamos datos sensibles con los más altos estándares de seguridad.",
-    },
-  ];
 
   return (
     <section
@@ -92,7 +72,6 @@ const About = () => {
               </div>
 
               <div className="space-y-3 text-sm">
-                <InfoItem text={founder.location} />
                 <InfoItem text={`Graduado en ${founder.university}`} />
                 <InfoItem text={founder.experience} />
                 <InfoItem text={founder.specialty} />
@@ -117,7 +96,7 @@ const About = () => {
         </motion.div>
 
         <div className="grid md:grid-cols-3 gap-8">
-          {benefits.map((item, index) => {
+          {benefitsData.map((item, index) => {
             const Icon = item.icon;
             return (
               <motion.div

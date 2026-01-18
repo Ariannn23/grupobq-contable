@@ -259,7 +259,7 @@ const Contact = () => {
       </div>
 
       <SuccessModal
-        show={showSuccessModal}
+        isOpen={showSuccessModal}
         onClose={() => setShowSuccessModal(false)}
       />
     </section>

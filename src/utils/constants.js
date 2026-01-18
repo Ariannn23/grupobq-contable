@@ -1,4 +1,3 @@
-
 export const CONTACT_INFO = {
   phones: ["+51 985 630 237", "+51 954 222 598"],
   emails: ["Grupobqcontadores@gmail.com"],
@@ -13,7 +12,6 @@ export const CONTACT_INFO = {
       "https://www.linkedin.com/in/armando-bautista-rojas-19066a103/?originalSubdomain=pe",
   },
 };
-
 
 export const BUSINESS_HOURS = {
   weekdays: {
@@ -30,7 +28,6 @@ export const BUSINESS_HOURS = {
   },
 };
 
-
 export const COMPANY_INFO = {
   name: "Grupo BQ Contadores y Asesores",
   tagline: "Tu socio de confianza en servicios contables y financieros",
@@ -46,8 +43,7 @@ export const COMPANY_INFO = {
           className: "text-primary-600",
         },
         {
-          text:
-            " nace con el objetivo de brindar un servicio contable confiable, claro y estratégico, enfocado en el crecimiento sostenible de pequeñas y medianas empresas.",
+          text: " nace con el objetivo de brindar un servicio contable confiable, claro y estratégico, enfocado en el crecimiento sostenible de pequeñas y medianas empresas.",
         },
       ],
     },
@@ -56,8 +52,7 @@ export const COMPANY_INFO = {
         { text: "Respaldados por " },
         { text: "años de experiencia en contabilidad", strong: true },
         {
-          text:
-            ", tributación y asesoría financiera, guiamos a diversas empresas hacia decisiones seguras, cumplimiento normativo y una gestión económica eficiente.",
+          text: ", tributación y asesoría financiera, guiamos a diversas empresas hacia decisiones seguras, cumplimiento normativo y una gestión económica eficiente.",
         },
       ],
     },
@@ -70,8 +65,7 @@ export const COMPANY_INFO = {
         { text: " y una " },
         { text: "atención personalizada", strong: true },
         {
-          text:
-            ", entendiendo que cada empresa tiene necesidades únicas y requiere soluciones claras y eficientes.",
+          text: ", entendiendo que cada empresa tiene necesidades únicas y requiere soluciones claras y eficientes.",
         },
       ],
     },
@@ -87,6 +81,5 @@ export const COMPANY_INFO = {
   },
 };
 
-
 export const FORM_ENDPOINT =
-  "https://formsubmit.co/ajax/TU_EMAIL_AQUI";
+  "https://formsubmit.co/ajax/654a22b480e14b2ffae261cfd79aa074";

@@ -1,6 +1,6 @@
 import { Award, Clock, Shield } from "lucide-react";
 
-export const benefits = [
+export const benefitsData = [
   {
     icon: Award,
     title: "Experiencia Comprobada",
