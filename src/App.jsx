@@ -1,9 +1,8 @@
-import { useState, useRef } from "react";
-import { motion, useMotionValue, useTransform } from "framer-motion";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   Menu,
   X,
-  Calculator,
   FileText,
   TrendingUp,
   Users,
@@ -23,7 +22,9 @@ import {
   Star,
 } from "lucide-react";
 import logo from "./assets/images/logo2.png";
-import heroImage from "./assets/images/hero-image.jpg";
+import heroImage1 from "./assets/images/hero-1.jpg";
+import heroImage2 from "./assets/images/hero-2.jpg";
+import heroImage3 from "./assets/images/hero-3.jpg";
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -34,6 +35,38 @@ function App() {
     mensaje: "",
   });
   const [isDragging, setIsDragging] = useState(false);
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [formErrors, setFormErrors] = useState({});
+
+  const heroSlides = [
+    {
+      image: heroImage1,
+      title: "Atención Personalizada",
+      subtitle: "Respuesta en menos de 24hrs",
+      icon: <Phone className="w-5 h-5" />,
+    },
+    {
+      image: heroImage2,
+      title: "Experiencia Comprobada",
+      subtitle: "+5 años en el mercado",
+      icon: <Award className="w-5 h-5" />,
+    },
+    {
+      image: heroImage3,
+      title: "Cumplimiento Garantizado",
+      subtitle: "100% normativa actualizada",
+      icon: <Shield className="w-5 h-5" />,
+    },
+  ];
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
+    }, 5000);
+
+    return () => clearInterval(timer);
+  }, []);
 
   const testimonios = [
     {
@@ -65,8 +98,42 @@ function App() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert("¡Gracias por contactarnos! Te responderemos pronto.");
+
+    // Validar formulario
+    const errors = {};
+
+    if (formData.nombre.trim().length < 3) {
+      errors.nombre = "El nombre debe tener al menos 3 caracteres";
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      errors.email = "Por favor ingresa un email válido";
+    }
+
+    const phoneRegex = /^[0-9]{9,15}$/;
+    if (!phoneRegex.test(formData.telefono.replace(/\s/g, ""))) {
+      errors.telefono = "Ingresa un teléfono válido (9-15 dígitos)";
+    }
+
+    if (formData.mensaje.trim().length < 10) {
+      errors.mensaje = "El mensaje debe tener al menos 10 caracteres";
+    }
+
+    if (Object.keys(errors).length > 0) {
+      setFormErrors(errors);
+      return;
+    }
+
+    // Si no hay errores, mostrar modal y limpiar formulario
+    setFormErrors({});
+    setShowSuccessModal(true);
     setFormData({ nombre: "", email: "", telefono: "", mensaje: "" });
+
+    // Cerrar modal después de 4 segundos
+    setTimeout(() => {
+      setShowSuccessModal(false);
+    }, 4000);
   };
 
   return (
@@ -182,7 +249,7 @@ function App() {
       {/* Hero Section */}
       <section
         id="inicio"
-        className="pt-24 pb-20 bg-gradient-to-br from-primary-50 to-white"
+        className="pt-24 pb-20 bg-gradient-to-br from-primary-50 via-white to-primary-100"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 gap-12 items-center">
@@ -196,9 +263,9 @@ function App() {
                 <span className="text-primary-500"> Confianza</span>
               </h1>
               <p className="text-xl text-gray-600 mb-8">
-                Más de 10 años ayudando a empresas y emprendedores a mantener
-                sus finanzas en orden. Expertos en contabilidad, auditoría y
-                asesoría tributaria.
+                Una sólida trayectoria ayudando a empresas y emprendedores a
+                mantener sus finanzas en orden. Expertos en contabilidad,
+                auditoría y asesoría tributaria.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4">
@@ -227,29 +294,75 @@ function App() {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="relative"
             >
-              <div className="relative rounded-2xl overflow-hidden shadow-2xl">
-                <img
-                  src={heroImage}
-                  alt="Equipo Grupo BQ"
-                  className="w-full h-auto object-cover"
-                  onError={(e) => {
-                    e.target.style.display = "none";
-                    e.target.nextSibling.style.display = "flex";
-                  }}
-                />
-                <div className="hidden w-full h-96 bg-gradient-to-br from-primary-500 to-primary-700 items-center justify-center">
-                  <Users className="w-32 h-32 text-white opacity-50" />
-                </div>
+              <div
+                className="relative rounded-2xl overflow-hidden shadow-2xl bg-gradient-to-br from-primary-500 to-primary-700"
+                style={{ width: "584px", height: "389px", maxWidth: "100%" }}
+              >
+                <AnimatePresence initial={false}>
+                  <motion.div
+                    key={currentSlide}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{
+                      duration: 0.8,
+                      ease: "easeInOut",
+                    }}
+                    className="absolute inset-0"
+                  >
+                    <img
+                      src={heroSlides[currentSlide].image}
+                      alt={heroSlides[currentSlide].title}
+                      className="w-full h-full object-cover"
+                      onError={(e) => {
+                        e.target.style.display = "none";
+                        e.target.nextSibling.style.display = "flex";
+                      }}
+                    />
+                    <div className="hidden w-full h-full bg-gradient-to-br from-primary-500 to-primary-700 items-center justify-center">
+                      <Users className="w-32 h-32 text-white opacity-50" />
+                    </div>
 
-                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-primary-900/90 to-transparent p-6 text-white">
-                  <div className="flex items-center space-x-2 mb-2">
-                    <CheckCircle className="w-5 h-5" />
-                    <p className="font-semibold">Atención Personalizada</p>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <Phone className="w-4 h-4" />
-                    <p className="text-sm">Respuesta en menos de 24hrs</p>
-                  </div>
+                    <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-primary-900/90 to-transparent p-6 text-white">
+                      <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.3 }}
+                        className="flex items-center space-x-2 mb-2"
+                      >
+                        {heroSlides[currentSlide].icon}
+                        <p className="font-semibold text-lg">
+                          {heroSlides[currentSlide].title}
+                        </p>
+                      </motion.div>
+                      <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.4 }}
+                        className="flex items-center space-x-2"
+                      >
+                        <CheckCircle className="w-4 h-4" />
+                        <p className="text-sm">
+                          {heroSlides[currentSlide].subtitle}
+                        </p>
+                      </motion.div>
+                    </div>
+                  </motion.div>
+                </AnimatePresence>
+
+                {/* Indicadores */}
+                <div className="absolute bottom-20 right-6 flex space-x-2 z-10">
+                  {heroSlides.map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setCurrentSlide(index)}
+                      className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                        index === currentSlide
+                          ? "bg-white w-8"
+                          : "bg-white/50 hover:bg-white/75"
+                      }`}
+                    />
+                  ))}
                 </div>
               </div>
             </motion.div>
@@ -368,11 +481,10 @@ function App() {
                   sostenible de pequeñas y medianas empresas.
                 </p>
                 <p className="text-gray-700 mb-4 leading-relaxed">
-                  Con más de <strong>10 años de experiencia</strong> en
-                  contabilidad, tributación y asesoría financiera, hemos
-                  acompañado a diversas empresas en la toma de decisiones
-                  seguras, cumplimiento normativo y mejora de su gestión
-                  económica.
+                  Respaldados por <strong>años de experiencia</strong> en contabilidad,
+                  tributación y asesoría financiera, guiamos a diversas empresas
+                  hacia decisiones seguras, cumplimiento normativo y una gestión
+                  económica eficiente.
                 </p>
                 <p className="text-gray-700 leading-relaxed">
                   Nuestro enfoque se basa en la <strong>ética</strong>, la{" "}
@@ -402,17 +514,17 @@ function App() {
                 </div>
 
                 <div className="space-y-3 text-sm">
-                  <div className="flex items-start space-x-2">
+                  {/* <div className="flex items-start space-x-2">
                     <CheckCircle className="w-5 h-5 mt-0.5 flex-shrink-0" />
                     <p>Natural de Paijan, La Libertad - Perú</p>
-                  </div>
+                  </div> */}
                   <div className="flex items-start space-x-2">
                     <CheckCircle className="w-5 h-5 mt-0.5 flex-shrink-0" />
                     <p>Graduado en ULADECH Católica</p>
                   </div>
                   <div className="flex items-start space-x-2">
                     <CheckCircle className="w-5 h-5 mt-0.5 flex-shrink-0" />
-                    <p>+10 años de experiencia profesional</p>
+                    <p>+5 años de experiencia profesional</p>
                   </div>
                   <div className="flex items-start space-x-2">
                     <CheckCircle className="w-5 h-5 mt-0.5 flex-shrink-0" />
@@ -444,7 +556,7 @@ function App() {
                 icon: <Award className="w-16 h-16" />,
                 title: "Experiencia Comprobada",
                 description:
-                  "Más de 10 años en el mercado respaldan nuestro servicio. Certificaciones profesionales y actualización constante.",
+                  "Años en el mercado respaldan nuestro servicio. Certificaciones profesionales y actualización constante.",
               },
               {
                 icon: <Clock className="w-16 h-16" />,
@@ -588,64 +700,100 @@ function App() {
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
                   <label className="block text-gray-700 font-semibold mb-2">
-                    Nombre Completo
+                    Nombre Completo *
                   </label>
                   <input
                     type="text"
                     required
                     value={formData.nombre}
-                    onChange={(e) =>
-                      setFormData({ ...formData, nombre: e.target.value })
-                    }
-                    className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition"
+                    onChange={(e) => {
+                      setFormData({ ...formData, nombre: e.target.value });
+                      setFormErrors({ ...formErrors, nombre: "" });
+                    }}
+                    className={`w-full px-4 py-3 border-2 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition ${
+                      formErrors.nombre ? "border-red-500" : "border-gray-300"
+                    }`}
                     placeholder="Juan Pérez"
                   />
+                  {formErrors.nombre && (
+                    <p className="text-red-500 text-sm mt-1">
+                      {formErrors.nombre}
+                    </p>
+                  )}
                 </div>
+
                 <div>
                   <label className="block text-gray-700 font-semibold mb-2">
-                    Email
+                    Email *
                   </label>
                   <input
                     type="email"
                     required
                     value={formData.email}
-                    onChange={(e) =>
-                      setFormData({ ...formData, email: e.target.value })
-                    }
-                    className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition"
+                    onChange={(e) => {
+                      setFormData({ ...formData, email: e.target.value });
+                      setFormErrors({ ...formErrors, email: "" });
+                    }}
+                    className={`w-full px-4 py-3 border-2 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition ${
+                      formErrors.email ? "border-red-500" : "border-gray-300"
+                    }`}
                     placeholder="juan@ejemplo.com"
                   />
+                  {formErrors.email && (
+                    <p className="text-red-500 text-sm mt-1">
+                      {formErrors.email}
+                    </p>
+                  )}
                 </div>
+
                 <div>
                   <label className="block text-gray-700 font-semibold mb-2">
-                    Teléfono
+                    Teléfono *
                   </label>
                   <input
                     type="tel"
                     required
                     value={formData.telefono}
-                    onChange={(e) =>
-                      setFormData({ ...formData, telefono: e.target.value })
-                    }
-                    className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition"
+                    onChange={(e) => {
+                      setFormData({ ...formData, telefono: e.target.value });
+                      setFormErrors({ ...formErrors, telefono: "" });
+                    }}
+                    className={`w-full px-4 py-3 border-2 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition ${
+                      formErrors.telefono ? "border-red-500" : "border-gray-300"
+                    }`}
                     placeholder="+51 999 999 999"
                   />
+                  {formErrors.telefono && (
+                    <p className="text-red-500 text-sm mt-1">
+                      {formErrors.telefono}
+                    </p>
+                  )}
                 </div>
+
                 <div>
                   <label className="block text-gray-700 font-semibold mb-2">
-                    Mensaje
+                    Mensaje *
                   </label>
                   <textarea
                     required
                     value={formData.mensaje}
-                    onChange={(e) =>
-                      setFormData({ ...formData, mensaje: e.target.value })
-                    }
+                    onChange={(e) => {
+                      setFormData({ ...formData, mensaje: e.target.value });
+                      setFormErrors({ ...formErrors, mensaje: "" });
+                    }}
                     rows="4"
-                    className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none resize-none transition"
+                    className={`w-full px-4 py-3 border-2 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none resize-none transition ${
+                      formErrors.mensaje ? "border-red-500" : "border-gray-300"
+                    }`}
                     placeholder="¿En qué podemos ayudarte?"
                   ></textarea>
+                  {formErrors.mensaje && (
+                    <p className="text-red-500 text-sm mt-1">
+                      {formErrors.mensaje}
+                    </p>
+                  )}
                 </div>
+
                 <motion.button
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
@@ -673,8 +821,8 @@ function App() {
                     <Phone className="w-6 h-6 mt-1" />
                     <div>
                       <p className="font-semibold">Teléfono</p>
-                      <p>+51 999 999 999</p>
-                      <p>+51 888 888 888</p>
+                      <p>+51 985 630 237</p>
+                      <p>+51 954 222 598</p>
                     </div>
                   </div>
 
@@ -682,8 +830,8 @@ function App() {
                     <Mail className="w-6 h-6 mt-1" />
                     <div>
                       <p className="font-semibold">Email</p>
-                      <p>contacto@grupocontable.com</p>
-                      <p>info@grupocontable.com</p>
+                      <p>Grupobqcontadores@gmail.com</p>
+                      {/* <p>info@grupocontable.com</p> */}
                     </div>
                   </div>
 
@@ -691,8 +839,8 @@ function App() {
                     <MapPin className="w-6 h-6 mt-1" />
                     <div>
                       <p className="font-semibold">Dirección</p>
-                      <p>Av. Principal 123, Oficina 456</p>
-                      <p>Lima, Perú</p>
+                      <p>Calle Francisco Bolognesi 169, Paijan</p>
+                      <p>La Libertad, Perú</p>
                     </div>
                   </div>
                 </div>
@@ -846,6 +994,57 @@ function App() {
           </div>
         </div>
       </footer>
+
+      {/* Modal de Éxito */}
+      <AnimatePresence>
+        {showSuccessModal && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 px-4"
+            onClick={() => setShowSuccessModal(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              transition={{ type: "spring", duration: 0.5 }}
+              className="bg-white rounded-2xl p-8 max-w-md w-full shadow-2xl"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="text-center">
+                <motion.div
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
+                  className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4"
+                >
+                  <CheckCircle className="w-12 h-12 text-green-500" />
+                </motion.div>
+
+                <h3 className="text-2xl font-bold text-secondary mb-3">
+                  ¡Mensaje Enviado!
+                </h3>
+
+                <p className="text-gray-600 mb-6">
+                  Gracias por contactarnos. Hemos recibido tu solicitud y te
+                  responderemos lo antes posible.
+                </p>
+
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => setShowSuccessModal(false)}
+                  className="bg-primary-500 text-white px-8 py-3 rounded-lg font-semibold hover:bg-primary-600 transition"
+                >
+                  Cerrar
+                </motion.button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
