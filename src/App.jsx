@@ -35,6 +35,7 @@ function App() {
     mensaje: "",
   });
   const [isDragging, setIsDragging] = useState(false);
+
   const [currentSlide, setCurrentSlide] = useState(0);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [formErrors, setFormErrors] = useState({});
@@ -49,7 +50,7 @@ function App() {
     {
       image: heroImage2,
       title: "Experiencia Comprobada",
-      subtitle: "+5 años en el mercado",
+      subtitle: "Presencia consolidada en el mercado",
       icon: <Award className="w-5 h-5" />,
     },
     {
@@ -186,7 +187,7 @@ function App() {
                 whileTap={{ scale: 0.95 }}
                 className="bg-primary-500 text-white px-6 py-2 rounded-lg hover:bg-primary-600 transition shadow-md"
               >
-                Consulta Gratis
+                Consulta Ahora
               </motion.a>
             </div>
 
@@ -238,9 +239,13 @@ function App() {
               >
                 Contacto
               </a>
-              <button className="w-full bg-primary-500 text-white px-6 py-2 rounded-lg hover:bg-primary-600">
+              <a
+                href="#contacto"
+                onClick={() => setMenuOpen(false)}
+                className="block w-full text-center bg-primary-500 text-white px-6 py-2 rounded-lg hover:bg-primary-600 transition"
+              >
                 Consulta Gratis
-              </button>
+              </a>
             </div>
           </motion.div>
         )}
@@ -294,10 +299,7 @@ function App() {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="relative"
             >
-              <div
-                className="relative rounded-2xl overflow-hidden shadow-2xl bg-gradient-to-br from-primary-500 to-primary-700"
-                style={{ width: "584px", height: "389px", maxWidth: "100%" }}
-              >
+              <div className="relative w-full aspect-[3/2] md:aspect-[16/11] rounded-2xl overflow-hidden shadow-2xl bg-gradient-to-br from-primary-500 to-primary-700">
                 <AnimatePresence initial={false}>
                   <motion.div
                     key={currentSlide}
@@ -481,10 +483,10 @@ function App() {
                   sostenible de pequeñas y medianas empresas.
                 </p>
                 <p className="text-gray-700 mb-4 leading-relaxed">
-                  Respaldados por <strong>años de experiencia</strong> en contabilidad,
-                  tributación y asesoría financiera, guiamos a diversas empresas
-                  hacia decisiones seguras, cumplimiento normativo y una gestión
-                  económica eficiente.
+                  Respaldados por <strong>años de experiencia</strong> en
+                  contabilidad, tributación y asesoría financiera, guiamos a
+                  diversas empresas hacia decisiones seguras, cumplimiento
+                  normativo y una gestión económica eficiente.
                 </p>
                 <p className="text-gray-700 leading-relaxed">
                   Nuestro enfoque se basa en la <strong>ética</strong>, la{" "}
@@ -524,7 +526,7 @@ function App() {
                   </div>
                   <div className="flex items-start space-x-2">
                     <CheckCircle className="w-5 h-5 mt-0.5 flex-shrink-0" />
-                    <p>+5 años de experiencia profesional</p>
+                    <p>+10 años de experiencia profesional</p>
                   </div>
                   <div className="flex items-start space-x-2">
                     <CheckCircle className="w-5 h-5 mt-0.5 flex-shrink-0" />
@@ -847,7 +849,7 @@ function App() {
               </div>
 
               <div className="bg-primary-50 border-2 border-primary-200 p-8 rounded-xl">
-                <h3 className="text-xl font-bold text-secondary mb-4">
+                <h3 className="text-2xl font-bold text-secondary mb-2">
                   Horario de Atención
                 </h3>
                 <div className="space-y-2 text-gray-700">
@@ -956,7 +958,7 @@ function App() {
               <h4 className="text-lg font-bold mb-4">Síguenos</h4>
               <div className="flex space-x-4">
                 <motion.a
-                  href="https://facebook.com"
+                  href="https://www.facebook.com/grupoqbcontadoresyasesores"
                   target="_blank"
                   rel="noopener noreferrer"
                   whileHover={{ scale: 1.1, y: -2 }}
@@ -976,7 +978,7 @@ function App() {
                   <Instagram className="w-5 h-5" />
                 </motion.a>
                 <motion.a
-                  href="https://linkedin.com"
+                  href="https://www.linkedin.com/in/armando-bautista-rojas-19066a103/?originalSubdomain=pe"
                   target="_blank"
                   rel="noopener noreferrer"
                   whileHover={{ scale: 1.1, y: -2 }}
