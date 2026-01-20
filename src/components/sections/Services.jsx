@@ -1,11 +1,11 @@
-import { motion } from "framer-motion";
+import { motion as Motion } from "framer-motion";
 import { servicesData } from "../../data/services";
 
 const Services = () => {
   return (
     <section id="servicios" className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
+        <Motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -17,13 +17,13 @@ const Services = () => {
           <p className="text-xl text-gray-600">
             Soluciones contables adaptadas a tus necesidades
           </p>
-        </motion.div>
+        </Motion.div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {servicesData.map((servicio, index) => {
             const IconComponent = servicio.icon;
             return (
-              <motion.div
+              <Motion.div
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -39,7 +39,7 @@ const Services = () => {
                   {servicio.title}
                 </h3>
                 <p className="text-gray-600">{servicio.description}</p>
-              </motion.div>
+              </Motion.div>
             );
           })}
         </div>

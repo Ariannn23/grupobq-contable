@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion as Motion } from "framer-motion";
 import { Users, CheckCircle } from "lucide-react";
 import { COMPANY_INFO } from "../../utils/constants";
 import { benefitsData } from "../../data/benefits";
@@ -13,7 +13,7 @@ const About = () => {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* INTRO */}
-        <motion.div
+        <Motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -25,7 +25,7 @@ const About = () => {
 
           <div className="grid md:grid-cols-2 gap-12 items-center">
             {/* HISTORIA */}
-            <motion.div
+            <Motion.div
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
@@ -52,10 +52,10 @@ const About = () => {
                   )}
                 </p>
               ))}
-            </motion.div>
+            </Motion.div>
 
             {/* FUNDADOR */}
-            <motion.div
+            <Motion.div
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
@@ -76,12 +76,12 @@ const About = () => {
                 <InfoItem text={founder.experience} />
                 <InfoItem text={founder.specialty} />
               </div>
-            </motion.div>
+            </Motion.div>
           </div>
-        </motion.div>
+        </Motion.div>
 
         {/* BENEFICIOS */}
-        <motion.div
+        <Motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -93,13 +93,13 @@ const About = () => {
           <p className="text-xl text-gray-600">
             Compromiso, experiencia y resultados
           </p>
-        </motion.div>
+        </Motion.div>
 
         <div className="grid md:grid-cols-3 gap-8">
           {benefitsData.map((item, index) => {
             const Icon = item.icon;
             return (
-              <motion.div
+              <Motion.div
                 key={index}
                 initial={{ opacity: 0, scale: 0.9 }}
                 whileInView={{ opacity: 1, scale: 1 }}
@@ -114,7 +114,7 @@ const About = () => {
                   {item.title}
                 </h3>
                 <p className="text-gray-600">{item.description}</p>
-              </motion.div>
+              </Motion.div>
             );
           })}
         </div>

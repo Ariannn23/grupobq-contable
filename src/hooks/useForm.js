@@ -52,7 +52,7 @@ export const useForm = (initialState = {}) => {
       } else {
         return { success: false, error: "Error al enviar el formulario" };
       }
-    } catch (error) {
+    } catch {
       setIsSubmitting(false);
       return { success: false, error: "Error de conexión. Intenta de nuevo." };
     }

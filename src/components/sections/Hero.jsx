@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion as Motion, AnimatePresence } from "framer-motion";
 import { CheckCircle, Users } from "lucide-react";
 import { heroSlidesData } from "../../data/heroSlides";
 import { handleNavClick } from "../../utils/scroll";
@@ -38,7 +38,7 @@ const Hero = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           {/* TEXTO */}
-          <motion.div
+          <Motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
@@ -55,7 +55,7 @@ const Hero = () => {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4">
-              <motion.a
+              <Motion.a
                 href="#contacto"
                 onClick={(e) => handleNavClick(e, "#contacto")}
                 whileHover={{ scale: 1.05 }}
@@ -63,9 +63,9 @@ const Hero = () => {
                 className="bg-primary-500 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-primary-600 transition shadow-lg text-center"
               >
                 Agendar Consulta
-              </motion.a>
+              </Motion.a>
 
-              <motion.a
+              <Motion.a
                 href="#servicios"
                 onClick={(e) => handleNavClick(e, "#servicios")}
                 whileHover={{ scale: 1.05 }}
@@ -73,12 +73,12 @@ const Hero = () => {
                 className="border-2 border-primary-500 text-primary-600 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-primary-500 hover:text-white transition text-center"
               >
                 Nuestros Servicios
-              </motion.a>
+              </Motion.a>
             </div>
-          </motion.div>
+          </Motion.div>
 
           {/* SLIDER */}
-          <motion.div
+          <Motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6, delay: 0.2 }}
@@ -92,7 +92,7 @@ const Hero = () => {
               "
             >
               <AnimatePresence>
-                <motion.div
+                <Motion.div
                   key={currentSlide}
                   variants={slideVariants}
                   initial="enter"
@@ -125,7 +125,7 @@ const Hero = () => {
 
                   {/* TEXTO SOBRE IMAGEN */}
                   <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                    <motion.div
+                    <Motion.div
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.4 }}
@@ -138,9 +138,9 @@ const Hero = () => {
                       <p className="font-semibold text-lg">
                         {heroSlidesData[currentSlide].title}
                       </p>
-                    </motion.div>
+                    </Motion.div>
 
-                    <motion.div
+                    <Motion.div
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.55 }}
@@ -150,9 +150,9 @@ const Hero = () => {
                       <p className="text-sm">
                         {heroSlidesData[currentSlide].subtitle}
                       </p>
-                    </motion.div>
+                    </Motion.div>
                   </div>
-                </motion.div>
+                </Motion.div>
               </AnimatePresence>
 
               {/* INDICADORES */}
@@ -170,7 +170,7 @@ const Hero = () => {
                 ))}
               </div>
             </div>
-          </motion.div>
+          </Motion.div>
         </div>
       </div>
     </section>

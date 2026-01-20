@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { motion } from "framer-motion";
+import { motion as Motion } from "framer-motion";
 import { Star } from "lucide-react";
 import { testimonialsData } from "../../data/testimonials";
 
@@ -42,12 +42,12 @@ const Testimonials = () => {
         cancelAnimationFrame(animationRef.current);
       }
     };
-  }, [isDragging, cardWidth, testimonialsData.length]);
+  }, [isDragging, cardWidth]);
 
   return (
     <section className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
+        <Motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -56,10 +56,10 @@ const Testimonials = () => {
           <h2 className="text-4xl font-bold text-secondary mb-4">
             Testimonios
           </h2>
-        </motion.div>
+        </Motion.div>
 
         <div className="relative overflow-hidden cursor-grab active:cursor-grabbing">
-          <motion.div
+          <Motion.div
             className="flex gap-6"
             drag="x"
             dragConstraints={{ left: -(totalWidth / 3), right: cardWidth }}
@@ -80,7 +80,7 @@ const Testimonials = () => {
             style={{ width: "max-content" }}
           >
             {extendedTestimonials.map((testimonio, index) => (
-              <motion.div
+              <Motion.div
                 key={`${testimonio.nombre}-${index}`}
                 className="w-[345px] h-[204px] bg-white p-6 rounded-xl shadow-md border border-gray-200 flex flex-col justify-between"
                 whileHover={{
@@ -120,9 +120,9 @@ const Testimonials = () => {
                   </h4>
                   <p className="text-gray-500 text-sm">{testimonio.cargo}</p>
                 </div>
-              </motion.div>
+              </Motion.div>
             ))}
-          </motion.div>
+          </Motion.div>
         </div>
       </div>
     </section>

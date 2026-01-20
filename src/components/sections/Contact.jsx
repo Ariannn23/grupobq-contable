@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion as Motion } from "framer-motion";
 import { Phone, Mail, MapPin, Loader2 } from "lucide-react";
 import { useForm } from "../../hooks/useForm";
 import SuccessModal from "../ui/SuccessModal";
@@ -50,7 +50,7 @@ const Contact = () => {
   return (
     <section id="contacto" className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
+        <Motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -60,10 +60,10 @@ const Contact = () => {
             Contáctanos
           </h2>
           <p className="text-xl text-gray-600">Estamos listos para ayudarte</p>
-        </motion.div>
+        </Motion.div>
 
         <div className="grid md:grid-cols-2 gap-12">
-          <motion.div
+          <Motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -163,7 +163,7 @@ const Contact = () => {
                 )}
               </div>
 
-              <motion.button
+              <Motion.button
                 whileHover={!isSubmitting ? { scale: 1.02 } : {}}
                 whileTap={!isSubmitting ? { scale: 0.98 } : {}}
                 type="submit"
@@ -182,11 +182,11 @@ const Contact = () => {
                 ) : (
                   "Enviar Mensaje"
                 )}
-              </motion.button>
+              </Motion.button>
             </form>
-          </motion.div>
+          </Motion.div>
 
-          <motion.div
+          <Motion.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -254,7 +254,7 @@ const Contact = () => {
                 </p>
               </div>
             </div>
-          </motion.div>
+          </Motion.div>
         </div>
       </div>
 

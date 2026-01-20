@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion as Motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import logo from "../../assets/images/logo2.png";
 import ScrollLink from "../ui/ScrollLink";
@@ -25,7 +25,7 @@ const Navbar = () => {
             whileTap={{}}
             className="flex items-center cursor-pointer"
           >
-            <motion.img
+            <Motion.img
               src={logo}
               alt="Grupo BQ Logo"
               className="h-12 w-auto"
@@ -73,7 +73,7 @@ const Navbar = () => {
 
       {/* MOBILE MENU */}
       {menuOpen && (
-        <motion.div
+        <Motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           className="md:hidden bg-white border-t"
@@ -100,7 +100,7 @@ const Navbar = () => {
               Consulta Gratis
             </ScrollLink>
           </div>
-        </motion.div>
+        </Motion.div>
       )}
     </nav>
   );
